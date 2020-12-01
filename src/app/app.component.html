@@ -1,0 +1,83 @@
+<!--NavBar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+	<a class="navbar-brand" href="#">SERSAR Hakim - MARBOUH Imrane</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	  <div class="navbar-nav">
+		<a class="nav-link" href="#list">Accueil</a>
+		<a class="nav-link" href="#create">Organiser un concert</a>
+	  </div>
+	</div>
+</nav>
+
+<!--Carousel-->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="height: 18rem; overflow: hidden">
+	<div class="carousel-inner">
+	  <div class="carousel-item active">
+		  <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" class="d-block w-100" alt="...">
+	  </div>
+	</div>
+</div>
+
+
+<div id="list" class="container-fluid bg-white text-center h3 p-4 pt-0">Concert à venir</div>
+<div class="container d-flex flex-wrap justify-content-center">
+	<div *ngFor="let concert of concertsDatas" class="card m-3 shadow-sm" style="width: 18rem;">
+		<img *ngIf="concert.image" class="card-img-top" src="{{ concert.image.url }}" alt="Card image cap">
+		<div class="card-body">
+			<h5 class="card-title">{{ concert.ville }} - {{ concert.placeMax }} places</h5>
+			<h6 class="card-subtitle mb-2 text-muted" style="font-size: 12px">{{ concert.date }}</h6>
+
+			<p class="card-text">{{ concert.description }}</p>
+			<h6 class="card-subtitle mb-2 text-muted">Artiste(s) présent</h6>
+			<div *ngFor="let artiste of concert.artistes" class="mb-3">
+				<li>{{ artiste }}</li>
+			</div>
+			<div class="mb-1">
+				<a href="https://www.google.com/maps/@{{concert.lieu.latitude}},{{concert.lieu.longitude}}" target="_blank">Localiser sur google map</a>
+			</div>
+			<button class="btn btn-primary btn-block">Billeterie</button>
+		</div>
+	</div>
+</div>
+
+<div id="create" class="container-fluid bg-white text-center h3 p-4 pt-0 mb-5">Organiser un concert</div>
+
+	<div class="container col-lg-4 col-sm-12">
+		<form>
+			<div class="form-group">
+				<label for="event_name">Ville</label>
+				<input type="text" class="form-control" id="event_city" required>
+			</div>
+			<div class="form-group">
+				<label for="event_name">Artiste principal</label>
+				<input type="text" class="form-control" id="event_artist" required>
+			</div>
+			<div class="form-group">
+				<label for="event_place">Nombre de place maximum</label>
+				<input type="number" class="form-control" id="event_place" required>
+			</div>
+			<div class="form-group">
+				<label for="event_desc">Description</label>
+				<input type="email" class="form-control" id="event_desc" required>
+				<small id="event_desc" class="form-text text-muted" maxlength="20">Veuillez saisir une description courte et concise.</small>
+			</div>
+			<div id="date-picker">
+				<label for="datepicker">Date de l'événement</label>
+				<input disabled placeholder="Select date" type="date" id="event_date" class="form-control" required>
+				<i class="fas fa-calendar input-prefix" tabindex=0></i>
+			</div>
+			<div class="p-3 text-center">
+				<button type="submit" (click)="createConcert()" class="btn btn-lg btn-sm btn-primary">Valider</button>	
+			</div>
+		</form>
+	</div>
+<div class="div" style="height: 300px"></div>
+
+<script>
+	$('.carousel').carousel()
+	// Data Picker Initialization
+	$('.datepicker').datepicker();
+</script>
